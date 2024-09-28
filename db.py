@@ -3,7 +3,11 @@ from mongoengine import Document, StringField, ListField, DateTimeField
 from mongoengine import NotUniqueError
 from datetime import datetime
 import pandas as pd
+import os
 import names
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class User(Document):
     name = StringField(required=True)
@@ -18,13 +22,17 @@ class User(Document):
     join_at = DateTimeField(required=True)
 
 # Connect to the MongoDB database running in the Docker container
-connect(
-    db='mongodb',  # Specify your database name
-    host='localhost',         # Host is localhost
-    port=27017,               # Port is the one mapped in the Docker run command
-    username='username',  # Use the username you set
-    password='password'   # Use the password you set
-)
+# Load environment variables
+MONGO_USER = os.getenv("MONGO_INITDB_ROOT_USERNAME")
+MONGO_PASSWORD = os.getenv("MONGO_INITDB_ROOT_PASSWORD")
+MONGO_HOST = os.getenv("RAILWAY_PRIVATE_DOMAIN")
+MONGO_PORT = os.getenv("MONGOPORT")
+
+# Construct the MongoDB URL
+mongo_url = os.getenv("MONGO_URL")
+
+# Connect to MongoDB
+connect(host=mongo_url)
 
 
 def add_user(name, username, clerk_id, email, role, specializations):

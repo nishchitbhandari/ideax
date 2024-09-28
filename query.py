@@ -20,16 +20,19 @@ class User(Document):
     join_at = DateTimeField(required=True)
 
 
-# Connect to MongoDB
-connect(
-    db='mongodb',  # Replace with your database name
-    host='localhost',         # Host is localhost
-    port=27017,               # Default MongoDB port
-    username=os.getenv('USERNAME'),  # Your MongoDB username
-    password=os.getenv("PASSWORD")   # Your MongoDB password
-)
+# Load environment variables
+# MONGO_USER = os.getenv("MONGO_INITDB_ROOT_USERNAME")
+# MONGO_PASSWORD = os.getenv("MONGO_INITDB_ROOT_PASSWORD")
+# MONGO_PORT = os.getenv("MONGOPORT")
 
+# Construct the MongoDB URL
+mongo_url = os.getenv("MONGO_URL")
+
+# Connect to MongoDB
+connect(host=mongo_url)
 
 def get_all_users():
     users = User.objects()  # Get all users
     return pd.DataFrame.from_dict([{"Id": str(user.clerk_id), "Subject speciality": ", ".join(user.specializations)} for user in users])
+
+print(get_all_users())
