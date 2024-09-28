@@ -7,7 +7,7 @@ app = FastAPI()
 
 
 # Create a POST endpoint to accept user history and return recommendations
-@app.post("/recommendations/", response_model=RecommendationResponse)
+@app.post("/recommendations", response_model=RecommendationResponse)
 def get_recommendations(request: UserHistoryRequest):
     try:
         # Call the recommendation function from main.py
