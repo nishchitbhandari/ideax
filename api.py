@@ -6,11 +6,12 @@ from fastapi.middleware.cors import CORSMiddleware
 
 # FastAPI app instance
 app = FastAPI()
+print("reached here 1")
 
 # Create a POST endpoint to accept user history and return recommendations
 @app.post("/recommendations", response_model=RecommendationResponse)
 def get_recommendations(request: UserHistoryRequest):
-    print("Reached here")
+    print("Reached here 2")
     try:
         # Call the recommendation function from main.py
         recommendations = get_weighted_recommendations(
