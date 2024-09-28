@@ -34,5 +34,3 @@ connect(host=mongo_url)
 def get_all_users():
     users = User.objects()  # Get all users
     return pd.DataFrame.from_dict([{"Id": str(user.clerk_id), "Subject speciality": ", ".join(user.specializations)} for user in users])
-
-print(get_all_users())
