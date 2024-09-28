@@ -1,6 +1,6 @@
 /__pycache__
 /env
 /.env
-# /names.py
-# /db.py
-# /dataset.csv
+/names.py
+/db.py
+/dataset.csv
